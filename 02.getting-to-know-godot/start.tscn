@@ -34,7 +34,7 @@ position = Vector2(-1280, 1536)
 position = Vector2(-1792, 1280)
 
 [node name="RoomB" parent="." instance=ExtResource("6_kxvpa")]
-position = Vector2(896, 1024)
+position = Vector2(-512, -1280)
 
 [node name="RoomC" parent="." instance=ExtResource("7_6kk7u")]
 position = Vector2(896, -1536)
