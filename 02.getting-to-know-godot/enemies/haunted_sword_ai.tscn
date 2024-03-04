@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://piso1p2hou2v"]
+[gd_scene load_steps=12 format=3 uid="uid://piso1p2hou2v"]
 
 [ext_resource type="Script" path="res://enemies/sword/haunted_sword_ai.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://cte8ddxd7o4de" path="res://common/kill.wav" id="2"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://bofr21sykbeu4" path="res://enemies/sword/sword_active.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://nohjoiah3jgr" path="res://enemies/sword/sword_inactive.png" id="5"]
 [ext_resource type="PackedScene" path="res://common/shadow.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://cu2rb5dl4ljte" path="res://levels/rooms/room_a.tscn" id="7_ico7y"]
+[ext_resource type="PackedScene" uid="uid://cq0mmphkbrvmm" path="res://levels/rooms/room_c.tscn" id="8_uwou8"]
 
 [sub_resource type="CircleShape2D" id="4"]
 radius = 25.6121
@@ -56,3 +58,9 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(50.9337, -1)
 shape = SubResource("3")
+
+[node name="RoomA" parent="." instance=ExtResource("7_ico7y")]
+position = Vector2(-1024, -1024)
+
+[node name="RoomC" parent="." instance=ExtResource("8_uwou8")]
+position = Vector2(-1024, 384)
