@@ -53,7 +53,7 @@ func _setup_populate_test_space() -> void:
 
 
 func _build_requirements() -> void:
-	_add_actions_requirement(Utils.flatten_unique(INPUTS_TO_TEST))
+	_add_actions_requirement(Utils.flatten_unique(INPUTS_TO_TEST) + ["boost"])
 
 
 func _build_checks() -> void:

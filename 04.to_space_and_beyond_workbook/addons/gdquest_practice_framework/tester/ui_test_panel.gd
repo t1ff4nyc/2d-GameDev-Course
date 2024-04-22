@@ -3,14 +3,15 @@ extends Control
 const Test := preload("test.gd")
 const LogEntry := preload("log_entry/log_entry.gd")
 const Paths := preload("../paths.gd")
-# const Requirements := preload("requirements.gd")
 const DB := preload("../db/db.gd")
-const Metadata := preload("../metadata.gd")
+const Metadata := preload("res://addons/gdquest_practice_framework/practice_solutions/metadata.gd")
+
+const PracticeMetadata := Metadata.PracticeMetadata
 
 const LogEntryPackedScene := preload("log_entry/log_entry.tscn")
 
+const NAME := "UITestPanel"
 const ICON_PATH := "../assets/icons/%s.svg"
-const ITEM := "L%d.P%d"
 const REPORT_STATUS := {
 	0: {text = "FAIL", theme_type_variation = &"LabelTesterStatusFail"},
 	1: {text = "PASS", theme_type_variation = &"LabelTesterStatusPass"},
@@ -22,11 +23,15 @@ const REPORT_PHASES = {
 	checking = {text = "Verifying your practice tasks..."},
 	requirements_fail = {text = "Test setup failed."},
 	test_fail = {text = "Looks like you've got some things to fix."},
-	test_pass = {text = "Congradulations! You aced this practice."},
+	test_pass = {text = "Congratulations! You aced this practice."},
 }
+
 var _practice_info := {}
 
-var db := DB.new()
+@onready var metadata: Metadata = get_window().get_node(Metadata.NAME)
+@onready var db := DB.new(metadata)
+
+@onready var main_panel_container: PanelContainer = %MainPanelContainer
 
 @onready var item_label: Label = %ItemLabel
 @onready var title_label: Label = %TitleLabel
@@ -49,7 +54,8 @@ var db := DB.new()
 
 
 func _ready() -> void:
-	if DisplayServer.get_name() == "headless":
+	var cmdline_args := OS.get_cmdline_args()
+	if DisplayServer.get_name() == "headless" or "--script" in cmdline_args or "-s" in cmdline_args:
 		queue_free()
 		return
 
@@ -89,10 +95,10 @@ func _on_toggle_show_button(is_toggled: bool) -> void:
 	tween = create_tween().set_ease(Tween.EASE_IN)
 	if is_toggled:
 		toggle_show_button.icon = preload(ICON_PATH % "hide")
-		tween.tween_property(self, "custom_minimum_size:x", 1920, 0.1)
+		tween.tween_property(main_panel_container, "position:x", 0.0, 0.1)
 	else:
 		toggle_show_button.icon = preload(ICON_PATH % "show")
-		tween.tween_property(self, "custom_minimum_size:x", 2340, 0.1)
+		tween.tween_property(main_panel_container, "position:x", -main_panel_container.size.x, 0.1)
 
 
 func _on_toggle_x5_button_toggled(is_toggled: bool) -> void:
@@ -116,9 +122,8 @@ func _prepare_practice_info() -> void:
 	_practice_info.dir_name = Paths.get_dir_name(_practice_info.file_path, Paths.PRACTICES_PATH)
 	_practice_info.base_path = Paths.PRACTICES_PATH.path_join(_practice_info.dir_name)
 
-	var metadata := Metadata.load()
-	for practice_metadata: Metadata.PracticeMetadata in metadata:
-		var path := Paths.to_practice(practice_metadata.main_scene)
+	for practice_metadata: PracticeMetadata in metadata.list:
+		var path := Paths.to_practice(practice_metadata.packed_scene_path)
 		if path == _practice_info.file_path:
 			_practice_info.metadata = practice_metadata
 			break
@@ -169,10 +174,10 @@ func _report_prep() -> void:
 		return
 
 	status_animation_player.play("testing")
-	var pm: Metadata.PracticeMetadata = _practice_info.metadata
+	var pm: PracticeMetadata = _practice_info.metadata
 	var info := {}
 	info[report_label] = REPORT_PHASES.prep
-	info[item_label] = {text = ITEM % [pm.lesson_number, pm.practice_number]}
+	info[item_label] = {text = pm.item}
 	info[title_label] = {text = pm.title}
 	_report(info)
 

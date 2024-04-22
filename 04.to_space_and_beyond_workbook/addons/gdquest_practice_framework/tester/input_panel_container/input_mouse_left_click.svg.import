@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmovmuxppt8hk"
-path="res://.godot/imported/input_safe.svg-dbaad47ef84574edadaf7af03d68e938.ctex"
+uid="uid://bv5xjs50niyq0"
+path="res://.godot/imported/input_mouse_left_click.svg-913566739ffc4a7216e6f87e326c322f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/gdquest_practice_framework/tester/input_panel_container/input_safe.svg"
-dest_files=["res://.godot/imported/input_safe.svg-dbaad47ef84574edadaf7af03d68e938.ctex"]
+source_file="res://addons/gdquest_practice_framework/tester/input_panel_container/input_mouse_left_click.svg"
+dest_files=["res://.godot/imported/input_mouse_left_click.svg-913566739ffc4a7216e6f87e326c322f.ctex"]
 
 [params]
 
