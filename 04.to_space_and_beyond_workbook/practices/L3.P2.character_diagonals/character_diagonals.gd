@@ -1,7 +1,7 @@
 extends Sprite2D
 
 var max_speed := 600.0
-var velocity := Vector2(100, 0)
+var velocity := Vector2(0, 0)
 # Once again, the direction variable is outside the _process() function so the
 # practice testing code can read its value.
 var direction := Vector2(0, 0)
