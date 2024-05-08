@@ -13,6 +13,7 @@ func set_outline_thickness(new_thickness: float) -> void:
 func _on_mouse_entered() -> void:
 	var tween := create_tween()
 	tween.tween_method(set_outline_thickness, 3.0, 6.0, 0.08)
+	queue_free()
 
 func _on_mouse_exited() -> void:
 	var tween := create_tween()
