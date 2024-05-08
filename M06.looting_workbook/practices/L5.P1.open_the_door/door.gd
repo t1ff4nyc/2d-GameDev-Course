@@ -34,3 +34,5 @@ func open() -> void:
 	animation_player.play("open")
 
 	input_pickable = false
+
+func 
