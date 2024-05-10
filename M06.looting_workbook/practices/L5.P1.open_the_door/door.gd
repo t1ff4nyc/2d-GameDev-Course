@@ -35,4 +35,3 @@ func open() -> void:
 
 	input_pickable = false
 
-func 
